@@ -11,13 +11,6 @@
         "description": "Name of the custom role"
       }
     },
-    "subscriptionId": {
-      "type": "string",
-      "defaultValue": "[subscription().subscriptionId]",
-      "metadata": {
-        "description": "Subscription ID to create this role in"
-      }
-    }
   },
   "variables": {
     "roleDefinitionId": "[guid(parameters('roleName'))]"
@@ -32,7 +25,7 @@
         "roleName": "[parameters('roleName')]",
         "description": "Minimal permission to use promptflow include read & write workspace Run History; read & write storage account blobs, tables and entities; acr pull.",
         "assignableScopes": [
-          "[concat('/subscriptions/', parameters('subscriptionId'))]"
+          "[subscription().id]"
         ],
         "permissions": [
           {
