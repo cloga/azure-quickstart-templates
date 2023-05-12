@@ -10,7 +10,7 @@
       "metadata": {
         "description": "Name of the custom role"
       }
-    },
+    }
   },
   "variables": {
     "roleDefinitionId": "[guid(parameters('roleName'))]"
