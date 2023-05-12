@@ -1,0 +1,12 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Create custom role with minimal permissions to use prompt flow",
+  "description": "This deployment template specifies resources need to use prompt flow include Azure Machine Learning workspace, and its associated resources including Azure Storage, and Azure Container Registry. This configuration describes the the built-in role needed to get started with Azure Machine Learning promptflow.",
+  "summary": "This template creates an Azure Machine Learning service workspace with public network connectivity.",
+  "githubUsername": "lochen",
+  "dateUpdated": "202-05-12",
+  "environments": [
+    "AzureCloud"
+  ]
+}
