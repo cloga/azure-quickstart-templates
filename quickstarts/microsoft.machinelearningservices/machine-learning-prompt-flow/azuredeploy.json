@@ -1,0 +1,95 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.5.6.12127",
+      "templateHash": "15014882513681156573"
+    }
+  },
+  "parameters": {   
+    "principalId": {
+      "type": "string",
+      "defaultValue": "28e2b4fc-7160-47b7-b437-551caf9970df",
+      "metadata": {
+        "description": "Specifies the principal ID assigned to the role, use following command to get principal id of user: az ad user show --id jondoe@contoso.com --query id"
+      }
+    },
+    "workspaceName": {
+        "type": "string",
+        "defaultValue": "lochen-master",
+        "metadata": {
+          "description": "The name of the workspace."
+        }
+    },
+    "storageAccountName": {
+        "type": "string",
+        "defaultValue": "lochenmaster1336104762",
+        "metadata": {
+          "description": "The name of the storage account linked with workspace."
+        }
+    },
+    "AcrName": {
+        "type": "string",
+        "defaultValue": "d35a3660c3034bd887915240a2501648",
+        "metadata": {
+          "description": "The name of the ACR linked with workspace."
+        }
+    }
+  },
+  "variables": {
+    "storageBlobDataContributorRoleId": "ba92f5b4-2d11-453d-a403-e96b0029c9fe",
+    "storageBlobDataContributorRoleAssignmentName": "[guid(parameters('principalId'), variables('storageBlobDataContributorRoleId'), resourceGroup().id)]",
+    "storageTableDataContributorRoleId": "0a9a7e1f-b9d0-4cc4-a60d-0319b160aaa3",
+    "storageTableDataContributorRoleAssignmentName": "[guid(parameters('principalId'), variables('storageTableDataContributorRoleId'), resourceGroup().id)]",
+    "azureMLDataScientistRoleId": "f6c7c914-8db3-469d-8ca1-694a8f32e121",
+    "azureMLDataScientistRoleAssignmentName": "[guid(parameters('principalId'), variables('azureMLDataScientistRoleId'), resourceGroup().id)]",
+    "acrPullRoleId": "7f951dda-4ed3-4680-a7ca-43fe172d538d",
+    "acrPullRoleAssignmentName": "[guid(parameters('principalId'), variables('acrPullRoleId'), resourceGroup().id)]",
+    "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+    "AcrResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2021-04-01-preview",
+      "name": "[variables('storageBlobDataContributorRoleAssignmentName')]",
+      "scope": "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",  
+      "properties": {
+        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('storageBlobDataContributorRoleId'))]",
+        "principalId": "[parameters('principalId')]"
+      }
+    },
+    {
+        "type": "Microsoft.Authorization/roleAssignments",
+        "apiVersion": "2021-04-01-preview",
+        "name": "[variables('storageTableDataContributorRoleAssignmentName')]",
+        "scope": "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",  
+        "properties": {
+          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('storageTableDataContributorRoleId'))]",
+          "principalId": "[parameters('principalId')]"
+        }
+    },
+    {
+        "type": "Microsoft.Authorization/roleAssignments",
+        "apiVersion": "2021-04-01-preview",
+        "name": "[variables('azureMLDataScientistRoleAssignmentName')]",
+        "scope": "[concat('Microsoft.MachineLearningServices/workspaces/', parameters('workspaceName'))]",  
+        "properties": {
+          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('azureMLDataScientistRoleId'))]",
+          "principalId": "[parameters('principalId')]"
+        }
+    },
+    {
+        "type": "Microsoft.Authorization/roleAssignments",
+        "apiVersion": "2021-04-01-preview",
+        "name": "[variables('acrPullRoleAssignmentName')]",
+        "scope": "[concat('Microsoft.ContainerRegistry/registries/', parameters('AcrName'))]",  
+        "properties": {
+          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('acrPullRoleId'))]",
+          "principalId": "[parameters('principalId')]"
+        }
+    }    
+  ]
+}
