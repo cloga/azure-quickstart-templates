@@ -1,0 +1,87 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.5.6.12127",
+      "templateHash": "15014882513681156573"
+    }
+  },
+  "parameters": {   
+    "principalId": {
+      "type": "string",
+      "defaultValue": "5b867c77-74fa-4b12-a7ab-647c2d5d16d2",
+      "metadata": {
+        "description": "Specifies the principal ID assigned to the role, use following command to get principal id of user: az ad user show --id jondoe@contoso.com --query id"
+      }
+    },
+    "customRoleId": {
+      "type": "string",
+      "defaultValue": "b02909e1-3fa4-5d4c-a87b-84553c6c648e",
+      "metadata": {
+        "description": "Specifies the custom role ID"
+      }      
+    },
+    "workspaceName": {
+        "type": "string",
+        "defaultValue": "lochen-canary",
+        "metadata": {
+          "description": "The name of the workspace."
+        }
+    },
+    "storageAccountName": {
+        "type": "string",
+        "defaultValue": "lochencanary2822920003",
+        "metadata": {
+          "description": "The name of the storage account linked with workspace."
+        }
+    },
+    "AcrName": {
+        "type": "string",
+        "defaultValue": "11bb439ad7b244ea9201d23efa76f8f3",
+        "metadata": {
+          "description": "The name of the ACR linked with workspace."
+        }
+    }
+  },
+  "variables": {
+    "storageRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), resourceGroup().id)]",
+    "workspaceRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), resourceGroup().id)]",
+    "acrRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), resourceGroup().id)]",    
+    "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+    "AcrResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2021-04-01-preview",
+      "name": "[variables('storageRoleAssignmentName')]",
+      "scope": "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",  
+      "properties": {
+        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', parameters('customRoleId'))]",
+        "principalId": "[parameters('principalId')]"
+      }
+    },
+    {
+        "type": "Microsoft.Authorization/roleAssignments",
+        "apiVersion": "2021-04-01-preview",
+        "name": "[variables('workspaceRoleAssignmentName')]",
+        "scope": "[concat('Microsoft.MachineLearningServices/workspaces/', parameters('workspaceName'))]",  
+        "properties": {
+          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', parameters('customRoleId'))]",
+          "principalId": "[parameters('principalId')]"
+        }
+    },
+    {
+        "type": "Microsoft.Authorization/roleAssignments",
+        "apiVersion": "2021-04-01-preview",
+        "name": "[variables('acrRoleAssignmentName')]",
+        "scope": "[concat('Microsoft.ContainerRegistry/registries/', parameters('AcrName'))]",  
+        "properties": {
+          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', parameters('customRoleId'))]",
+          "principalId": "[parameters('principalId')]"
+        }
+    }    
+  ]
+}

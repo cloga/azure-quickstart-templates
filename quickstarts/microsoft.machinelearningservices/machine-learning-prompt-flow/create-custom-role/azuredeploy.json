@@ -1,0 +1,83 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+  },
+  "parameters": {   
+    "roleName": {
+      "type": "string",
+      "defaultValue": "promptflow-user",
+      "metadata": {
+        "description": "Name of the custom role"
+      }
+    },
+    "subscriptionId": {
+      "type": "string",
+      "defaultValue": "[subscription().subscriptionId]",
+      "metadata": {
+        "description": "Subscription ID to create this role in"
+      }
+    }
+  },
+  "variables": {
+    "roleDefinitionId": "[guid(parameters('roleName'))]"
+  },
+
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/roleDefinitions",
+      "apiVersion": "2022-04-01",
+      "name": "[variables('roleDefinitionId')]",
+      "properties": {
+        "roleName": "[parameters('roleName')]",
+        "description": "Minimal permission to use promptflow include read & write workspace Run History; read & write storage account blobs, tables and entities; acr pull.",
+        "assignableScopes": [
+          "[concat('/subscriptions/', parameters('subscriptionId'))]"
+        ],
+        "permissions": [
+          {
+          "Actions": [
+            "Microsoft.MachineLearningServices/workspaces/*/read",
+            "Microsoft.MachineLearningServices/workspaces/experiments/*",
+            "Microsoft.MachineLearningServices/workspaces/jobs/*",
+            "Microsoft.ContainerRegistry/registries/pull/read",
+            "Microsoft.Storage/storageAccounts/blobServices/containers/read",
+            "Microsoft.Storage/storageAccounts/blobServices/containers/write",
+            "Microsoft.Storage/storageAccounts/blobServices/generateUserDelegationKey/action",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/read",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/write"
+        ],
+        "NotActions": [
+            "Microsoft.Authorization/*",
+            "Microsoft.MachineLearningServices/workspaces/delete",
+            "Microsoft.MachineLearningServices/workspaces/write",
+            "Microsoft.MachineLearningServices/workspaces/computes/*/write",
+            "Microsoft.MachineLearningServices/workspaces/computes/*/delete", 
+            "Microsoft.MachineLearningServices/workspaces/computes/listKeys/action",
+            "Microsoft.MachineLearningServices/workspaces/listKeys/action",
+            "Microsoft.MachineLearningServices/workspaces/services/aks/write",
+            "Microsoft.MachineLearningServices/workspaces/services/aks/delete",
+            "Microsoft.MachineLearningServices/workspaces/endpoints/pipelines/write",
+            "Microsoft.Storage/storageAccounts/blobServices/containers/delete",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/delete"
+        ],
+        "DataActions": [
+            "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
+            "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write",
+            "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/move/action",
+            "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/add/action",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/entities/read",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/entities/write",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/entities/add/action",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/entities/update/action"
+        ],
+        "NotDataActions": [
+            "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/delete",
+            "Microsoft.Storage/storageAccounts/tableServices/tables/entities/delete"
+        ]
+       }
+      ]
+    }
+  }
+  ]
+}
