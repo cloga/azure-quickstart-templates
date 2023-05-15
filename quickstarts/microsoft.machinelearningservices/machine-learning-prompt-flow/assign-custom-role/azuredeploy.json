@@ -11,47 +11,45 @@
   "parameters": {   
     "principalId": {
       "type": "string",
-      "defaultValue": "5b867c77-74fa-4b12-a7ab-647c2d5d16d2",
       "metadata": {
         "description": "Specifies the principal ID assigned to the role, use following command to get principal id of user: az ad user show --id jondoe@contoso.com --query id"
       }
     },
-    "customRoleId": {
+    "roleName": {
       "type": "string",
-      "defaultValue": "b02909e1-3fa4-5d4c-a87b-84553c6c648e",
+      "defaultValue": "promptflow-user",
       "metadata": {
-        "description": "Specifies the custom role ID"
-      }      
-    },
+        "description": "Name of the custom role"
+      }
+    },    
     "workspaceName": {
         "type": "string",
-        "defaultValue": "lochen-canary",
         "metadata": {
           "description": "The name of the workspace."
         }
     },
     "storageAccountName": {
         "type": "string",
-        "defaultValue": "lochencanary2822920003",
         "metadata": {
           "description": "The name of the storage account linked with workspace."
         }
     },
     "AcrName": {
         "type": "string",
-        "defaultValue": "11bb439ad7b244ea9201d23efa76f8f3",
         "metadata": {
           "description": "The name of the ACR linked with workspace."
         }
     }
   },
   "variables": { 
+    "customRoleId": "[guid(parameters('roleName'))]",
     "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
     "acrResourceId": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
     "workspaceResourceId": "[resourceId('Microsoft.MachineLearningServices/workspaces', parameters('workspaceName'))]",  
-    "storageRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), variables('storageAccountResourceId'))]",
-    "workspaceRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), variables('workspaceResourceId'))]",
-    "acrRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), variables('acrResourceId'))]"
+    "storageRoleAssignmentName": "[guid(parameters('principalId'), variables('customRoleId'), variables('storageAccountResourceId'))]",
+    "workspaceRoleAssignmentName": "[guid(parameters('principalId'), variables('customRoleId'), variables('workspaceResourceId'))]",
+    "acrRoleAssignmentName": "[guid(parameters('principalId'), variables('customRoleId'), variables('acrResourceId'))]"
+    
   },
   "resources": [
     {
@@ -60,7 +58,7 @@
       "name": "[variables('storageRoleAssignmentName')]",
       "scope": "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",  
       "properties": {
-        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', parameters('customRoleId'))]",
+        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('customRoleId'))]",
         "principalId": "[parameters('principalId')]"
       }
     },
@@ -70,7 +68,7 @@
         "name": "[variables('workspaceRoleAssignmentName')]",
         "scope": "[concat('Microsoft.MachineLearningServices/workspaces/', parameters('workspaceName'))]",  
         "properties": {
-          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', parameters('customRoleId'))]",
+          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('customRoleId'))]",
           "principalId": "[parameters('principalId')]"
         }
     },
@@ -80,7 +78,7 @@
         "name": "[variables('acrRoleAssignmentName')]",
         "scope": "[concat('Microsoft.ContainerRegistry/registries/', parameters('AcrName'))]",  
         "properties": {
-          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', parameters('customRoleId'))]",
+          "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('customRoleId'))]",
           "principalId": "[parameters('principalId')]"
         }
     }    
