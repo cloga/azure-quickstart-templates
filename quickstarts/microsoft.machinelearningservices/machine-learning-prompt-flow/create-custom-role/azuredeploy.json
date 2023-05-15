@@ -31,6 +31,7 @@
           {
           "Actions": [
             "Microsoft.MachineLearningServices/workspaces/*/read",
+            "Microsoft.MachineLearningServices/workspaces/datastores/*/action",            
             "Microsoft.MachineLearningServices/workspaces/experiments/*",
             "Microsoft.MachineLearningServices/workspaces/jobs/*",
             "Microsoft.ContainerRegistry/registries/pull/read",

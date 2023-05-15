@@ -2,14 +2,20 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "name": {
-      "value": "GEN-UNIQUE-8"
+    "principalId": {
+      "value": "28e2b4fc-7160-47b7-b437-551caf9970df"
     },
-    "environment": {
-      "value": "GEN-UNIQUE-3"
+    "roleName":{
+      "value": "promptflow-user"
     },
-    "location": {
-      "value": "westus2"
+    "workspaceName": {
+      "value": "lochen-master"
+    },
+    "storageAccountName": {
+      "value": "lochenmaster6123055632"
+    },
+    "acrName": {
+      "value": "f0467853cc1343eda8dcdf850fe220a4"
     }
   }
 }

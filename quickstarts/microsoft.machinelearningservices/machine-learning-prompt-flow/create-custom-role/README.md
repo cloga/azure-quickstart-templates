@@ -1,6 +1,24 @@
-# Create custom role with mininal permission to use promptflow
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcloga%2Fazure-quickstart-templates%2Flochen%2Fpromptflow%2Fquickstarts%2Fmicrosoft.machinelearningservices%2Fmachine-learning-prompt-flow%2Fcreate-custom-role%2Fazuredeploy.json)
-
+# Create custom role with mininal permissions to use promptflow runtime
+You can create custom role with mininal permissions needed to use promptflow runtime
 ## Assign role to user and identity
 - Follow this doc to [Assign role in portal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal)
-- Use [this template](../assign-custom-role/) to use this custom role to grand enough permission to use promptflow runtime.
+- Use [this template](../assign-custom-role/) to use this custom role to grant enough permission to use promptflow runtime.
+    - You can use [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcloga%2Fazure-quickstart-templates%2Flochen%2Fpromptflow%2Fquickstarts%2Fmicrosoft.machinelearningservices%2Fmachine-learning-prompt-flow%2Fcreate-custom-role%2Fazuredeploy.json)
+    - Use Azure CLI to deploy this template
+        ```bash
+        echo "Enter the same project name:"
+        read projectName
+        echo "Enter the template file path and file name:"
+        read templateFile
+        echo "Enter the parameters file path and file name:"
+        read templateFile        
+        az deployment sub create \
+          --name DeployLocalTemplate \
+          --template-file $templateFile \
+          --parameters @storage.parameters.json \
+          --verbose
+        ```
+## Learn more
+- [Deploy resources with ARM templates and Azure CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-cli)
+- [Tutorial - Create and deploy template - Azure Resource Manager](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-first-template)
+- [Azure custom roles - Azure RBAC](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles)
