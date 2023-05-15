@@ -34,7 +34,7 @@
           "description": "The name of the storage account linked with workspace."
         }
     },
-    "AcrName": {
+    "acrName": {
         "type": "string",
         "metadata": {
           "description": "The name of the ACR linked with workspace."
