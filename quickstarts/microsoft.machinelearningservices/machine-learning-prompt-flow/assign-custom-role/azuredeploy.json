@@ -45,12 +45,13 @@
         }
     }
   },
-  "variables": {
-    "storageRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), resourceGroup().id)]",
-    "workspaceRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), resourceGroup().id)]",
-    "acrRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), resourceGroup().id)]",    
+  "variables": { 
     "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
-    "AcrResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+    "acrResourceId": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+    "workspaceResourceId": "[resourceId('Microsoft.MachineLearningServices/workspaces', parameters('workspaceName'))]",  
+    "storageRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), variables('storageAccountResourceId'))]",
+    "workspaceRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), variables('workspaceResourceId'))]",
+    "acrRoleAssignmentName": "[guid(parameters('principalId'), parameters('customRoleId'), variables('acrResourceId'))]"
   },
   "resources": [
     {
