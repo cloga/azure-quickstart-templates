@@ -11,7 +11,7 @@ languages:
 # Create an Azure Machine Learning compute instance 
 - Follow this doc to [Create and manage compute instance](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-create-manage-compute-instance)
 - Use [this template](../create-compute-instance-with-custom-application/) to compute instance with custom application which can be used as prompt flow runtime.
-    - You can use [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fquickstarts%2Fmicrosoft.machinelearningservices%2Fmachine-learning-compute-create-computeinstance%2Fazuredeploy.json)
+    - You can use [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcloga%2Fazure-quickstart-templates%2Flochen%2Fpromptflow%2Fquickstarts%2Fmicrosoft.machinelearningservices%2Fmachine-learning-prompt-flow%2Fcreate-compute-instance-with-custom-application%2Fazuredeploy.json)
     - Use Azure CLI to deploy this template
         ```bash
         echo "Enter the template file path and file name:"
