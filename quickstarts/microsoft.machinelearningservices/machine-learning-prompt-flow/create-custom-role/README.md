@@ -1,8 +1,8 @@
 # Create custom role with mininal permissions to use promptflow runtime
 You can create custom role with mininal permissions needed to use promptflow runtime
 ## Assign role to user and identity
-- Follow this doc to [Assign role in portal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal)
-- Use [this template](../assign-custom-role/) to use this custom role to grant enough permission to use promptflow runtime.
+- Follow this doc to [Create or update Azure custom roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal)
+- Use [this template](../create-custom-role/) to create custom role whic minial permissions to use promptflow runtime.
     - You can use [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcloga%2Fazure-quickstart-templates%2Flochen%2Fpromptflow%2Fquickstarts%2Fmicrosoft.machinelearningservices%2Fmachine-learning-prompt-flow%2Fcreate-custom-role%2Fazuredeploy.json)
     - Use Azure CLI to deploy this template
         ```bash

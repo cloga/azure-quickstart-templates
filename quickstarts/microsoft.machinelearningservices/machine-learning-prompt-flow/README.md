@@ -14,3 +14,7 @@ languages:
 - Built-in roles may have too much permission. If you want to grant minimum permissions you can:
     - Create custom role with minimum permission, you can check [this temple](./create-custom-role/).
     - Assign custom role to user(CI) of endpoint(MIR), you can check [this temple](./assign-custom-role/).
+ 
+If you are new to Azure Machine Learning prompt flow, see:
+- [What is prompt flow](https://promptflow.azurewebsites.net/overview-what-is-prompt-flow.html)
+- [Start your prompt flow journey](https://promptflow.azurewebsites.net/quick-start.html)
