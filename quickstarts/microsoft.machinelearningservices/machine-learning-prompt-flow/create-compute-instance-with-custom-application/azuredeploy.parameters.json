@@ -3,13 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "workspaceName": {
-            "value": "GET-PREREQ-workspaceName"
+            "value": "lochen-eastus"
         },
         "computeName": {
-            "value": "GEN-UNIQUE-8"
+            "value": "lochen060601"
         },
         "principalId": {
-            "value": "GEN-AZUREAD-OBJECTID"
+            "value": "ca4c3f33-d292-4dcd-9179-7f1f50a9d3ae"
+        },
+        "image":{
+            "value": "mcr.microsoft.com/azureml/promptflow/promptflow-runtime:latest"
         }
     }
 }

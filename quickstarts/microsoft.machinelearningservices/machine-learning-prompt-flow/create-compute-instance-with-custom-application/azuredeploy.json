@@ -40,7 +40,15 @@
             "metadata": {
                 "description": "Specifies the principal ID assigned to the role, use following command to get principal id of user: az ad user show --id jondoe@contoso.com --query id"
             }
+        },
+        "image":{
+            "type": "string",
+            "defaultValue": "mcr.microsoft.com/azureml/promptflow/promptflow-runtime:latest",
+            "metadata": {
+                "description": "Specifies the image to be used for custom application"
+            }
         }
+    
     },
     "variables": {
     },
@@ -74,7 +82,7 @@
                                         }
                                     ],
                                     "image": {
-                                        "reference": "mcr.microsoft.com/azureml/promptflow/promptflow-runtime@sha256:c7865187669d4fc5193ce50cd5d15ca8970abfaaae8e0723ca4b1662aea6f6bc",
+                                        "reference": "[parameters('image')]",
                                         "type": "docker"
                                     },
                                     "name": "promptflow-runtime"
